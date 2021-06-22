@@ -1,5 +1,6 @@
 def get_english_score(input_bytes):
-    """returns the score of a message based on
+    """
+    returns the score of a message based on
     relative frequency the English characters
     """
     character_frequencies = {
@@ -15,23 +16,34 @@ def get_english_score(input_bytes):
 
 
 def single_char_xor(input_bytes, char_value) -> bytes:
-    """Returns the result of each byte being XOR'd with a single value.
+    """
+    Returns the result of each byte being XOR'd with a single value.
     """
     output_bytes = b''
     for byte in input_bytes:
         output_bytes += bytes([byte ^ char_value])
     return output_bytes
 
-if __name__=='__main__':
-    data="1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
-    bdata=bytes.fromhex(data)
-    result=[]
-    for i in range(256):
-        decode = single_char_xor(bdata, i)
-        score = get_english_score(decode)
-        result.append((score,decode))
 
-    for flag in sorted(result, key=lambda x:x[0], reverse=True)[:10]:
-        print(flag)
+def bruteforce_single_char_xor(ciphertext : bytes) -> dict:
+    """Performs a singlechar xor for each possible value(0,255), and
+    assigns a score based on character frequency. Returns the result
+    with the highest score.
+    """
+    decoded_text = []
+    for key_value in range(256):
+        message = single_char_xor(ciphertext, key_value)
+        score = get_english_score(message)
+        data = {
+            'message': message,
+            'score': score,
+            'key': key_value
+            }
+        decoded_text.append(data)
+    return sorted(decoded_text, key=lambda x: x['score'], reverse=True)[0]
 
 
+if __name__ == '__main__':
+    hex_input = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
+    byte_input = bytes.fromhex(hex_input)
+    print(bruteforce_single_char_xor(byte_input))
