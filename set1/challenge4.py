@@ -1,6 +1,6 @@
-from challenge3 import *
+from set1.challenge3 import *
 
-filename = '4.txt'
+filename = 'text/4.txt'
 with open(filename) as f:
     content = [line.rstrip('\n') for line in f]
 

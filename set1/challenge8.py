@@ -1,7 +1,7 @@
 
 
 if __name__=='__main__':
-    filename = '8.txt'
+    filename = 'text/8.txt'
     with open(filename) as f:
         hexdata = [line.rstrip('\n') for line in f]
 

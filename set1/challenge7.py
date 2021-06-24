@@ -7,7 +7,7 @@ def decrypt_AES_ECB(ciphertext):
 
 
 if __name__=='__main__':
-    filename = '7.txt'
+    filename = 'text/7.txt'
     key = b"YELLOW SUBMARINE"
     with open(filename) as f:
         ciphertext = base64.b64decode(f.read())
