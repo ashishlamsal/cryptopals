@@ -1,9 +1,8 @@
 import secrets
 import random
-import math
 from set1.challenge7 import encrypt_AES_ECB
 from set1.challenge8 import detect_AES_ECB
-from set2.challenge9 import PKCS_7
+from set2.challenge9 import pkcs7
 from set2.challenge10 import encrypt_AES_CBC
 
 
@@ -17,8 +16,7 @@ def encryption_oracle(plaintext):
     plaintext = extra_header + plaintext + extra_footer
     
     # add padding
-    padding = math.ceil(len(plaintext) / len(key)) * len(key)
-    plaintext = PKCS_7(padding, plaintext)
+    plaintext = pkcs7(plaintext, blocksize=len(key))
 
     # randomly choose encryption mode (ECB or CBC)
     if random.choice([0,1]):
@@ -56,4 +54,4 @@ def attempt_detection(text_length, trials):
 
 
 if __name__=='__main__':
-    attempt_detection(32,100)
+    attempt_detection(42,100)

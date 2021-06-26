@@ -14,8 +14,9 @@ if __name__=='__main__':
     key = b"YELLOW SUBMARINE"
     with open(filename) as f:
         ciphertext = base64.b64decode(f.read())
-        print(decrypt_AES_ECB(key, ciphertext))
+        result = decrypt_AES_ECB(key, ciphertext)
+        print(result)
 
         # test encrypt function
-        result = decrypt_AES_ECB(key, ciphertext)
         assert encrypt_AES_ECB(key, result) == ciphertext
+

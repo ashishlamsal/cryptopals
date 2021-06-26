@@ -1,3 +1,4 @@
+from base64 import b64decode
 from set1.challenge7 import encrypt_AES_ECB, decrypt_AES_ECB
 from set1.challenge5 import repeating_key_xor
 
@@ -52,7 +53,7 @@ if __name__=='__main__':
 
     filename = 'text/10.txt'
     with open(filename) as f:
-        ciphertext = f.read().encode()
+        ciphertext = b64decode(f.read())
         plaintext = decrypt_AES_CBC(key, IV, ciphertext)
-
+        print(ciphertext)
         assert encrypt_AES_CBC(key, IV, plaintext) == ciphertext
