@@ -3,10 +3,20 @@ def pkcs7(message : bytes, blocksize : int) -> bytes:
     padding = blocksize - ( len(message) % blocksize )
     return message + bytes([padding]*padding)
 
+
 def pkcs7_strip(data : bytes) -> bytes:
     """Removes PKCS#7 padding"""
-    padding_length = data[-1]
-    return data[:- padding_length]
+    # get the last padding value
+    padding_value = data[-1]
+
+    # find number of padding_value in reversed data
+    pading_length = data.count(data[-1:], -padding_value)
+    
+    # check if the number of padding_value matches padding_length
+    if pading_length != padding_value:
+        raise ValueError("Error Unpacking PKCS#7")
+
+    return data[:- padding_value]
 
 
 if __name__ == '__main__':

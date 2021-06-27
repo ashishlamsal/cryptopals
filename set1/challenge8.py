@@ -1,19 +1,17 @@
+def find_repeating_blocks(ciphertext, blocksize = 16):
+    n_blocks = len(ciphertext) // blocksize
+    blocks = {}
+    for i in range(0, n_blocks * blocksize, blocksize):
+        blocks[ciphertext[i:i+blocksize]] = blocks.get(ciphertext[i:i+blocksize], 0) + 1
+    return blocks
+
+
 def detect_AES_ECB(ciphertext):
     """
     Returns true if ciphertext is AES ECB encrypted.
     ciphertext that has repeatiting chunks is AES ECB encrypted
     """
-    # Group the data and count repeating chunks
-    block_size = 16
-
-    # break the string into block_size chunks
-    chunks = [ciphertext[i:i+block_size] for i in range(0, len(ciphertext), block_size)]
-    
-    # count number of repeated blocks
-    repeated_blocks= len(chunks) - len(set(chunks)) 
-
-    # returns True repeated_blocks is not zero
-    return bool(repeated_blocks)
+    return any(v > 1 for v in find_repeating_blocks(ciphertext).values())
 
 
 def find_ECB(hexdata):
@@ -28,3 +26,4 @@ if __name__ == '__main__':
     with open(filename) as f:
         hexdata = [line.rstrip('\n') for line in f]
         print(find_ECB(hexdata))
+
