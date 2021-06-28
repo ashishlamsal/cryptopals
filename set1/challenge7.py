@@ -1,11 +1,11 @@
 import base64
 from Crypto.Cipher import AES
 
-def decrypt_AES_ECB(key, ciphertext):
+def decrypt_AES_ECB(key : bytes, ciphertext : bytes) -> bytes:
     decipher = AES.new(key, AES.MODE_ECB)
     return decipher.decrypt(ciphertext)
 
-def encrypt_AES_ECB(key, plaintext):
+def encrypt_AES_ECB(key : bytes, plaintext : bytes) -> bytes:
     cipher = AES.new(key, AES.MODE_ECB)
     return cipher.encrypt(plaintext)
 

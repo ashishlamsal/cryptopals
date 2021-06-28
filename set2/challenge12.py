@@ -18,7 +18,7 @@ def encryption_oracle_ecb_v1(plaintext : bytes) -> bytes:
     return encrypt_AES_ECB(key, plaintext)
 
 
-def block_and_padding_size(oracle, fill_length=0):
+def block_and_padding_size(oracle, fill_length=0) -> tuple[int, int]:
     """Returns a tuple of int containing the block size and the length of padding
     """
     blocksize_limit = 64
@@ -50,7 +50,7 @@ def create_dictionary(oracle, blocksize: int, fill=b'') -> dict:
     return ct_store
 
 
-def byte_at_a_time_decrypt(oracle, blocksize: int, fill_length =0, offset =0) -> bytes:    
+def byte_at_a_time_decrypt(oracle, blocksize: int, fill_length=0, offset=0) -> bytes:    
     # fill the last block used by the random prefix to reach a full bsize block
     fill = b'A' * fill_length
      

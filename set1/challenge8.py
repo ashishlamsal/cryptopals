@@ -1,4 +1,4 @@
-def find_repeating_blocks(ciphertext, blocksize = 16):
+def find_repeating_blocks(ciphertext : bytes, blocksize = 16) -> dict:
     n_blocks = len(ciphertext) // blocksize
     blocks = {}
     for i in range(0, n_blocks * blocksize, blocksize):
@@ -6,7 +6,7 @@ def find_repeating_blocks(ciphertext, blocksize = 16):
     return blocks
 
 
-def detect_AES_ECB(ciphertext):
+def detect_AES_ECB(ciphertext : bytes) -> bool:
     """
     Returns true if ciphertext is AES ECB encrypted.
     ciphertext that has repeatiting chunks is AES ECB encrypted
@@ -14,7 +14,7 @@ def detect_AES_ECB(ciphertext):
     return any(v > 1 for v in find_repeating_blocks(ciphertext).values())
 
 
-def find_ECB(hexdata):
+def find_ECB(hexdata: list) -> None:
     for text in hexdata:
         ciphertext = bytes.fromhex(text)
         if detect_AES_ECB(ciphertext):

@@ -2,7 +2,7 @@ from base64 import b64decode
 from set1.challenge7 import encrypt_AES_ECB, decrypt_AES_ECB
 from set1.challenge5 import repeating_key_xor
 
-def encrypt_AES_CBC(key : bytes, IV : bytes, plaintext : bytes) ->bytes:
+def encrypt_AES_CBC(key : bytes, IV : bytes, plaintext : bytes) -> bytes:
     # break the string into block_size chunks
     chunks = [plaintext[i:i+len(key)] for i in range(0, len(plaintext), len(key))]
 
@@ -55,5 +55,7 @@ if __name__=='__main__':
     with open(filename) as f:
         ciphertext = b64decode(f.read())
         plaintext = decrypt_AES_CBC(key, IV, ciphertext)
-        print(ciphertext)
+        print(plaintext)
+        
         assert encrypt_AES_CBC(key, IV, plaintext) == ciphertext
+        assert decrypt_AES_CBC(key, IV, ciphertext) == plaintext

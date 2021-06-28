@@ -11,7 +11,7 @@ def pairwise(iterable):
     return zip(a, b)
 
 
-def get_hamming_distance(input1 :bytes, input2 : bytes)->int:
+def get_hamming_distance(input1 :bytes, input2 : bytes) -> int:
     "Returns hamming distance between two input byte string"
     if len(input1) != len(input2):
         raise Exception("Error: strings must be of same length")
@@ -22,7 +22,7 @@ def get_hamming_distance(input1 :bytes, input2 : bytes)->int:
         hamming_distance += sum([int(bit) for bit in bin(b1 ^ b2)[2:]])
     return hamming_distance
 
-def break_repeating_key_xor(ciphertext):
+def break_repeating_key_xor(ciphertext : bytes):
     """Attempts to break repeating-key XOR encryption.
     """
     distances = []

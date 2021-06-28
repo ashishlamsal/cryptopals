@@ -6,7 +6,7 @@ from set2.challenge9 import pkcs7
 from set2.challenge10 import encrypt_AES_CBC
 
 
-def encryption_oracle(plaintext):
+def encryption_oracle(plaintext : bytes) -> tuple[bytes, str]:
     # random key of 16 bytes for encryption
     key = secrets.token_bytes(16)
 
@@ -27,7 +27,7 @@ def encryption_oracle(plaintext):
         return encrypt_AES_CBC(key, IV, plaintext), 'CBC'
 
 
-def detect_AES(plaintext):
+def detect_AES(plaintext : bytes) -> int:
     ciphertext, mode = encryption_oracle(plaintext)
     is_ECB = detect_AES_ECB(ciphertext)
 
@@ -42,7 +42,7 @@ def detect_AES(plaintext):
         return 2
 
 
-def attempt_detection(text_length, trials):
+def attempt_detection(text_length : int, trials : int) -> None:
     plaintext = b'A' * text_length
     stats = [0,0,0]
 

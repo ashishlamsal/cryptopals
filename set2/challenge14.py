@@ -27,8 +27,7 @@ def encryption_oracle_ecb_v2(plaintext: bytes) -> bytes:
     return encrypt_AES_ECB(key, plaintext)
 
 
-def get_prefix_parameters(blocksize):
-    
+def get_prefix_parameters(blocksize : int) -> tuple[int, int]:
     # give an increasing length input to the oracle until you fill completely
     # two blocks (ECB is used, you'll find two equal blocks in the cipher)
     filling = b'A'
@@ -43,7 +42,7 @@ def get_prefix_parameters(blocksize):
             break
         filling += b'A'
 
-    # this is the how much space of its last block is NOT used by the random prefix
+    # this is the space of its last block that is NOT used by the random prefix
     # because it doesn't match the blocksize
     fill_len = len(filling) - blocksize * 2
 
